@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { DeleteBoard } from "./schema";
 import { redirect } from "next/navigation";
+import { decreaseAvailableCount } from "@/lib/org-limit";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -27,6 +28,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         orgId,
       },
     });
+    await decreaseAvailableCount();
   } catch (e) {
     return {
       error: "Failed to delete mindmap",
