@@ -18,7 +18,7 @@ export const Navbar = () => {
     <div className="fixed top-0 w-full h-20 px-4 z-50 border-b shadow-sm bg-white flex items-center">
       <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between  ">
         <Logo />
-        <ul className="flex gap-16">
+        <ul className="hidden lg:flex gap-8 xl:gap-16">
           <li>
             <Link href="/product" className={isActive("/product")}>
               <p>Product</p>
