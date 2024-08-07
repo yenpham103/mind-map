@@ -25,11 +25,11 @@ const MarketingPage = () => {
           headingFont.className
         )}
       >
-        <div className="mb-6 flex items-center border shadow-sm p-4 bg-amber-100 text-amber-700 rounded-full uppercase ">
+        <div className="mb-6 flex items-center border shadow-sm p-4 bg-[#ff0073] text-white rounded-full uppercase ">
           <Lightbulb className="h-6 w-6 mr-2" />
-          It all starts with an idea.
+          <span className="mt-1">It all starts with an idea.</span>
         </div>
-        <h1 className="text-3xl md:text-6xl text-center text-[#3D474D] mb-10 leading-4">
+        <h1 className="text-2xl md:text-6xl text-center text-[#3D474D] mb-10 leading-4">
           <p className="flex flex-col gap-3 items-center justify-center dark:text-slate-100">
             <span>Collaborative</span>
             <span>Mind Mapping</span>
