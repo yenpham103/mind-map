@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { CreateBoard } from "./schema";
 import { incrementAvailableCount, hasAvailableCount } from "@/lib/org-limit";
+import { checkSubscription } from "@/lib/subcription";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -17,8 +18,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   const canCreate = await hasAvailableCount();
+  const isPro = await checkSubscription();
 
-  if (!canCreate) {
+  if (!canCreate && !isPro) {
     return {
       error:
         "You have reached your limit of free mindmap. Please upgrade to create more.",
@@ -56,7 +58,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         imageUserName,
       },
     });
-    await incrementAvailableCount();
+    if (!isPro) {
+      await incrementAvailableCount();
+    }
   } catch (e) {
     return {
       error: "Failed to create.",

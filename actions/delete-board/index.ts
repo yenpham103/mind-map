@@ -8,15 +8,18 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import { DeleteBoard } from "./schema";
 import { redirect } from "next/navigation";
 import { decreaseAvailableCount } from "@/lib/org-limit";
+import { checkSubscription } from "@/lib/subcription";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
 
-  if (!orgId) {
+  if (!orgId || !userId) {
     return {
       error: "Unauthorized",
     };
   }
+
+  const isPro = await checkSubscription();
 
   const { id } = data;
   let board;
@@ -28,7 +31,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         orgId,
       },
     });
-    await decreaseAvailableCount();
+    if (!isPro) {
+      await decreaseAvailableCount();
+    }
   } catch (e) {
     return {
       error: "Failed to delete mindmap",

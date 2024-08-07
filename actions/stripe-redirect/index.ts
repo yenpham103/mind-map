@@ -71,12 +71,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       url = stripeSession.url || "";
     }
   } catch (error) {
-    console.log(1);
-    console.log(error);
+    // console.log(error);
 
-    // return {
-    //   error: "Something went wrong!",
-    // };
+    return {
+      error: "Something went wrong!",
+    };
   }
 
   revalidatePath(`/organization/${orgId}`);
