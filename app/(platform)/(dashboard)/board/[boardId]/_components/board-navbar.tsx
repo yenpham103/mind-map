@@ -2,6 +2,7 @@ import { Board } from "@prisma/client";
 import BoardTitleForm from "./board-title-form";
 import BoardOptions from "./board-options";
 import SharePublic from "@/components/modals/share-public";
+import SharePrivate from "@/components/modals/share-private";
 interface BoardNavbarProps {
   data: Board;
 }
@@ -11,6 +12,7 @@ const BoardNavbar = async ({ data }: BoardNavbarProps) => {
       <BoardTitleForm data={data} />
       <div className="ml-auto">
         <SharePublic data={data} />
+        <SharePrivate />
         <BoardOptions id={data.id} title={data.title} data={data} />
       </div>
     </div>

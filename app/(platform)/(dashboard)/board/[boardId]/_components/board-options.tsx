@@ -14,6 +14,7 @@ import { MdDelete } from "react-icons/md";
 import { DeleteModal } from "@/components/modals/delete-modal";
 import { useSharePublic } from "@/hooks/use-share-public";
 import { Board } from "@prisma/client";
+import { useSharePrivate } from "@/hooks/use-share-private";
 
 interface BoardOptionsProps {
   id: string;
@@ -22,8 +23,12 @@ interface BoardOptionsProps {
 }
 const BoardOptions = ({ id, title, data }: BoardOptionsProps) => {
   const publicModal = useSharePublic();
+  const privateModal = useSharePrivate();
   const handleSharePublic = () => {
     publicModal.onOpen();
+  };
+  const handleSharePrivate = () => {
+    privateModal.onOpen();
   };
   return (
     <>
@@ -58,9 +63,7 @@ const BoardOptions = ({ id, title, data }: BoardOptionsProps) => {
           <Button
             variant="ghost"
             className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm"
-            // onClick={() => {
-            //   privateModal.onOpen();
-            // }}
+            onClick={handleSharePrivate}
           >
             <RiGitRepositoryPrivateFill className="mr-2 w-4 h-4" />
             Private(default)

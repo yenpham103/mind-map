@@ -3,6 +3,7 @@ import { updateBoard } from "@/actions/update-board";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -59,7 +60,7 @@ const SharePublic = ({ data }: SharePublicProps) => {
   const url = `${origin}${pathname}`;
 
   return (
-    <Dialog open={publicModal.isOpen} onOpenChange={publicModal.onOpen}>
+    <Dialog open={publicModal.isOpen} onOpenChange={publicModal.onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Share Mindmap Public</DialogTitle>
@@ -91,8 +92,13 @@ const SharePublic = ({ data }: SharePublicProps) => {
             />
           </div>
           <DialogFooter className="mt-4">
+            <DialogClose>
+              <Button type="button" variant="outline">
+                Cancel
+              </Button>
+            </DialogClose>
             <Button type="submit">
-              {isLoading ? "Saving..." : "Save change"}
+              {isLoading ? "Sharing..." : "Share Public"}
             </Button>
           </DialogFooter>
         </form>
