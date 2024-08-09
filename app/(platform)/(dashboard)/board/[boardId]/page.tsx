@@ -25,9 +25,15 @@ const BoardIdPage = async ({ params }: BoardIdPageProps) => {
     },
   });
 
+  const board = await db.board.findUnique({
+    where: {
+      id: params.boardId,
+    },
+  });
+
   return (
     <>
-      <ProviderMindmap boardId={params.boardId} data={lists} />
+      <ProviderMindmap boardId={params.boardId} data={board} />
     </>
   );
 };

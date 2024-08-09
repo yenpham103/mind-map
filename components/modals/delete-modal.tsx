@@ -17,6 +17,7 @@ import { Button } from "../ui/button";
 import { useAction } from "@/hooks/use-action";
 import { deleteBoard } from "@/actions/delete-board";
 import { toast } from "sonner";
+import { deleteMindmap } from "@/services/mindmapService";
 
 interface DeleteModalProps {
   id: string;
@@ -30,9 +31,14 @@ export const DeleteModal = ({ id, children }: DeleteModalProps) => {
       toast.error(error);
     },
   });
-
-  const onDelete = () => {
-    execute({ id });
+  const onDelete = async () => {
+    try {
+      await deleteMindmap(id as any);
+      execute({ id });
+      toast.success("Delete successfully");
+    } catch (error) {
+      toast.error("Delete failed");
+    }
   };
 
   return (

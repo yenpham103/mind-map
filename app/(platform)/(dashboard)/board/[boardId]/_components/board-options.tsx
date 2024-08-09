@@ -12,13 +12,19 @@ import { RiGitRepositoryPrivateFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 
 import { DeleteModal } from "@/components/modals/delete-modal";
-import SharePublic from "@/components/modals/share-public";
+import { useSharePublic } from "@/hooks/use-share-public";
+import { Board } from "@prisma/client";
 
 interface BoardOptionsProps {
   id: string;
   title: string;
+  data: Board;
 }
-const BoardOptions = ({ id, title }: BoardOptionsProps) => {
+const BoardOptions = ({ id, title, data }: BoardOptionsProps) => {
+  const publicModal = useSharePublic();
+  const handleSharePublic = () => {
+    publicModal.onOpen();
+  };
   return (
     <>
       <Popover>
@@ -39,15 +45,15 @@ const BoardOptions = ({ id, title }: BoardOptionsProps) => {
               <X className="h-4 w-4 " />
             </Button>
           </PopoverClose>
-          <SharePublic id={id} title={title}>
-            <Button
-              variant="ghost"
-              className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm"
-            >
-              <MdOutlinePublic className="mr-2 w-4 h-4" />
-              Share Public
-            </Button>
-          </SharePublic>
+
+          <Button
+            onClick={handleSharePublic}
+            variant="ghost"
+            className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm"
+          >
+            <MdOutlinePublic className="mr-2 w-4 h-4" />
+            Public
+          </Button>
 
           <Button
             variant="ghost"
@@ -57,7 +63,7 @@ const BoardOptions = ({ id, title }: BoardOptionsProps) => {
             // }}
           >
             <RiGitRepositoryPrivateFill className="mr-2 w-4 h-4" />
-            Share Private
+            Private(default)
           </Button>
 
           <DeleteModal id={id}>

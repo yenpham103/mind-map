@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
-import { Pencil } from "lucide-react";
 
 function TextUpdateNode({ data, isConnectable, ...rest }) {
   const { setNodes } = useReactFlow();
   const [disabled, setDisabled] = useState(true);
-  const [stopPropagation, setStopPropagation] = useState(true);
 
   const onChange = useCallback(
     (evt) => {
@@ -44,11 +42,7 @@ function TextUpdateNode({ data, isConnectable, ...rest }) {
           id="text"
           name="text"
           onChange={onChange}
-          className={clsx(
-            !disabled && "nodrag editable",
-            "nodrag",
-            setStopPropagation && "stopPropagation"
-          )}
+          className={clsx(!disabled && "nodrag editable", "nodrag")}
           defaultValue={data.label}
           readOnly={disabled}
           onDoubleClick={() => setDisabled(false)}
@@ -61,10 +55,6 @@ function TextUpdateNode({ data, isConnectable, ...rest }) {
             }
           }}
         />
-        {/* <Pencil
-          className="h-4 w-4 mr-2"
-          onClick={() => setStopPropagation(!stopPropagation)}
-        /> */}
       </div>
       <Handle
         type="source"

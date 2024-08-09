@@ -12,6 +12,9 @@ interface BoardTitleFormProps {
   data: Board;
 }
 const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
+  const [title, setTitle] = useState(data.title);
+
+  const [isEditing, setIsEditing] = useState(false);
   const { execute } = useAction(updateBoard, {
     onSuccess: (data) => {
       toast.success(`Mindmeister "${data.title}" updated!`);
@@ -25,10 +28,6 @@ const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
 
   const formRef = useRef<ElementRef<"form">>(null);
   const inputRef = useRef<ElementRef<"input">>(null);
-
-  const [title, setTitle] = useState(data.title);
-
-  const [isEditing, setIsEditing] = useState(false);
 
   const enabledEditing = () => {
     setIsEditing(true);

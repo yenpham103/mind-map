@@ -5,13 +5,13 @@ import MindMap from "./mind-map";
 import { ReactFlowProvider } from "@xyflow/react";
 interface ProviderMindmapProps {
   boardId: string;
-  data: List[];
+  data: any;
 }
 
 const ProviderMindmap = ({ boardId, data }: ProviderMindmapProps) => {
   return (
     <ReactFlowProvider>
-      <MindMap />
+      <MindMap data={data} />
     </ReactFlowProvider>
   );
 };
