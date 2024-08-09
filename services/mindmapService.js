@@ -1,4 +1,4 @@
-const SERVER_API = process.env.NEXT_PUBLIC_SERVER_API;
+const SERVER_API = "https://2qyxjn-8080.csb.app/mindmaps";
 
 export const getMindmap = async (id) => {
   try {
